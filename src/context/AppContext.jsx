@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AppContext } from "./AppContextValue.js";
+import { assertObject, readObjValue } from "../utils/objectHelpers.js";
 const API_URL = "http://localhost:3001/cards";
 
 export function AppProvider({ children }) {
@@ -20,6 +21,7 @@ export function AppProvider({ children }) {
   }, []);
 
   async function addLoan(newLoan) {
+    assertObject(newLoan);
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,6 +29,8 @@ export function AppProvider({ children }) {
     });
     if (!response.ok) throw new Error("Could not add the loan");
     const savedLoan = await response.json();
+    assertObject(savedLoan);
+    readObjValue(savedLoan, "id");
     setLoans((currentLoans) => [...currentLoans, savedLoan]);
   }
 

@@ -16,13 +16,17 @@ export default function LoansPage() {
 
   return (
     <section className="container py-5">
-      <PageHeader title="Borrowed items" text="Add an item or remove it when it is returned." />
+      <PageHeader
+        title="Borrowed items"
+        text="Add an item or remove it when it is returned."
+      />
 
       {loading && <p>Loading loans...</p>}
       {error && <div className="alert alert-danger">{error}</div>}
-
       <div className="row g-4 mb-4">
-        <div className="col-lg-4"><LoanForm onAdd={addLoan} /></div>
+        <div className="col-lg-4">
+          <LoanForm onAdd={addLoan} />
+        </div>
         <div className="col-lg-8">
           <div className="row g-3">
             {loans.map((loan) => (
@@ -31,7 +35,11 @@ export default function LoansPage() {
               </div>
             ))}
             {!loading && loans.length === 0 && (
-              <div className="col-12"><p className="text-secondary">No loans yet. Add the first one!</p></div>
+              <div className="col-12">
+                <p className="text-secondary">
+                  No loans yet. Add the first one!
+                </p>
+              </div>
             )}
           </div>
         </div>

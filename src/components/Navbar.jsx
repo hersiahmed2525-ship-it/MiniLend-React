@@ -4,8 +4,14 @@ import { NavLink } from "react-router-dom";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const links = [
+    { label: "Home", to: "/", end: true },
+    { label: "Loans", to: "/loans" },
+    { label: "About", to: "/about" },
+  ];
+
   const linkClass = ({ isActive }) =>
-    `nav-link ${isActive ? "active fw-bold text-success" : "text-dark"}`;
+    `nav-link${isActive ? " active fw-bold text-success" : ""}`;
 
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
@@ -28,28 +34,17 @@ export default function Navbar() {
         </button>
         <div className={`collapse navbar-collapse ${open ? "show" : ""}`}>
           <div className="navbar-nav ms-auto">
-            <NavLink
-              className={linkClass}
-              end
-              to="/"
-              onClick={() => setOpen(false)}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              className={linkClass}
-              to="/loans"
-              onClick={() => setOpen(false)}
-            >
-              Loans
-            </NavLink>
-            <NavLink
-              className={linkClass}
-              to="/about"
-              onClick={() => setOpen(false)}
-            >
-              About
-            </NavLink>
+            {links.map(({ label, to, end }) => (
+              <NavLink
+                key={to}
+                className={linkClass}
+                end={end}
+                to={to}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </NavLink>
+            ))}
           </div>
         </div>
       </div>
