@@ -1,28 +1,18 @@
-import { useMemo, useState } from "react";
-
 import { useApp } from "../context/useApp.js";
 import PageHeader from "../components/PageHeader.jsx";
 import LoanCard from "../components/LoanCard.jsx";
 import LoanForm from "../components/LoanForm.jsx";
 
 export default function LoansPage() {
-  const { loans, loading, error, addLoan, deleteLoan } = useApp();
-
-  const [search, setSearch] = useState("");
-
-  const filteredLoans = useMemo(() => {
-    const query = search.trim().toLowerCase();
-
-    if (!query) return loans;
-
-    return loans.filter(
-      (loan) =>
-        loan.item.toLowerCase().includes(query) ||
-        loan.borrower.toLowerCase().includes(query) ||
-        loan.category.toLowerCase().includes(query)
-    );
-  }, [loans, search]);
-
+  const { loans, loading, error, search, addLoan, deleteLoan } = useApp();
+  const query = search.trim().toLowerCase();
+  const visibleLoans = query
+    ? loans.filter((loan) =>
+        [loan.item, loan.borrower, loan.category]
+          .filter(Boolean)
+          .some((value) => String(value).toLowerCase().includes(query))
+      )
+    : loans;
   const handleDelete = async (id) => {
     try {
       await deleteLoan(id);
@@ -38,49 +28,50 @@ export default function LoansPage() {
         text="Add an item or remove it when it is returned."
       />
 
+      {loading && (
+        <div className="d-flex align-items-center gap-2 text-secondary mb-4" role="status">
+          <span className="spinner-border spinner-border-sm text-success" aria-hidden="true" />
+          <span>Loading loans...</span>
+        </div>
+      )}
+
       {error && <div className="alert alert-danger">{error}</div>}
 
       <div className="row g-4">
         <div className="col-lg-4">
-          <div className="sticky-top" style={{ top: "5rem" }}>
-            <LoanForm onAdd={addLoan} />
+          <div className="sticky-lg-top pt-lg-5">
+            <div className="pt-lg-3">
+              <LoanForm onAdd={addLoan} />
+            </div>
           </div>
         </div>
 
         <div className="col-lg-8">
-          <div className="input-group mb-4">
-            <span className="input-group-text">
-              <i className="bi bi-search" />
-            </span>
+          <div className="row g-3">
+            {visibleLoans.map((loan) => (
+              <div key={loan.id} className="col-md-6">
+                <LoanCard loan={loan} onDelete={handleDelete} />
+              </div>
+            ))}
 
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search by item, borrower, or category..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-
-          {loading ? (
-            <p>Loading loans...</p>
-          ) : (
-            <div className="row g-3">
-              {filteredLoans.map((loan) => (
-                <div key={loan.id} className="col-md-6">
-                  <LoanCard loan={loan} onDelete={handleDelete} />
-                </div>
-              ))}
-
-              {filteredLoans.length === 0 && (
-                <div className="col-12">
-                  <div className="alert alert-light border">
-                    No matching loans found.
+            {!loading && visibleLoans.length === 0 && (
+              <div className="col-12">
+                <div className="card border-0 shadow-sm text-center">
+                  <div className="card-body py-5 px-3">
+                    <i className="bi bi-search fs-1 text-success" aria-hidden="true" />
+                    <h2 className="h5 mt-3">
+                      {query ? "No matching loans" : "No loans yet"}
+                    </h2>
+                    <p className="text-secondary mb-0">
+                      {query
+                        ? "Try another item, borrower, or category."
+                        : "Add the first item with the form."}
+                    </p>
                   </div>
                 </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

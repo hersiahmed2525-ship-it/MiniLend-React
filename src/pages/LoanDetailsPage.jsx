@@ -8,15 +8,27 @@ export default function LoanDetailsPage() {
   // Match the route parameter to a loan, converting IDs to strings because URL params are strings.
   const loan = loans.find((item) => String(item.id) === id);
 
-  if (loading) return <div className="container py-5">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="container py-5 d-flex align-items-center justify-content-center gap-2 text-secondary" role="status">
+        <span className="spinner-border text-success" aria-hidden="true" />
+        <span>Loading loan...</span>
+      </div>
+    );
+  }
 
   if (!loan) {
     return (
       <div className="container py-5">
-        <h1>Loan not found</h1>
-        <Link className="btn btn-success" to="/loans">
-          Back to loans
-        </Link>
+        <div className="card border-0 shadow-sm text-center">
+          <div className="card-body py-5">
+            <i className="bi bi-journal-x display-4 text-secondary" aria-hidden="true" />
+            <h1 className="h3 mt-3">Loan not found</h1>
+            <Link className="btn btn-success mt-2" to="/loans">
+              <i className="bi bi-arrow-left me-2" aria-hidden="true" />Back to loans
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
@@ -28,17 +40,21 @@ export default function LoanDetailsPage() {
         Back to loans
       </Link>
       <div className="card border-0 shadow-sm mt-3">
-        <div className="card-body p-4">
+        <div className="card-body p-4 p-md-5">
           <span className="badge text-bg-success-subtle text-success">
             {loan.category}
           </span>
-          <h1 className="h2 mt-3">{loan.item}</h1>
-          <p className="mb-2">
-            <strong>Borrower:</strong> {loan.borrower}
-          </p>
-          <p className="mb-0">
-            <strong>Borrowed on:</strong> {loan.date}
-          </p>
+          <h1 className="h2 mt-3 mb-4">{loan.item}</h1>
+          <dl className="row mb-0">
+            <dt className="col-sm-3 text-secondary">
+              <i className="bi bi-person me-2" aria-hidden="true" />Borrower
+            </dt>
+            <dd className="col-sm-9 fw-semibold">{loan.borrower}</dd>
+            <dt className="col-sm-3 text-secondary mb-0">
+              <i className="bi bi-calendar3 me-2" aria-hidden="true" />Borrowed on
+            </dt>
+            <dd className="col-sm-9 mb-0 fw-semibold">{loan.date}</dd>
+          </dl>
         </div>
       </div>
     </section>

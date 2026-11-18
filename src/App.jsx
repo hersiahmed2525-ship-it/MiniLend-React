@@ -11,13 +11,22 @@ export default function App() {
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
         <Navbar />
-        <main className="flex-grow-1">
+        <main className="flex-grow-1 bg-body-tertiary">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/loans" element={<LoansPage />} />
             <Route path="/loans/:id" element={<LoanDetailsPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="*" element={<h1 className="container py-5">Page not found</h1>} />
+            <Route
+              path="*"
+              element={
+                <div className="container py-5 text-center">
+                  <i className="bi bi-compass display-1 text-success" aria-hidden="true" />
+                  <h1 className="h2 mt-3">Page not found</h1>
+                  <p className="text-secondary">The page you requested does not exist.</p>
+                </div>
+              }
+            />
           </Routes>
         </main>
         <Footer />

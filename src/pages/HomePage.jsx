@@ -6,23 +6,26 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="hero py-5">
+      <section className="bg-success-subtle py-5">
         <div className="container py-4">
           <div className="row align-items-center g-4">
             <div className="col-lg-7">
-              <p className="text-success fw-bold">Simple sharing, less waste</p>
+              <p className="text-success fw-bold mb-2">
+                <i className="bi bi-leaf me-2" aria-hidden="true" />Simple sharing, less waste
+              </p>
               <h1 className="display-5 fw-bold mb-3">Keep track of everything you lend.</h1>
-              <p className="lead text-secondary">
+              <p className="lead text-secondary mb-4">
                 Add an item, record who borrowed it, and keep all your loans in one place.
               </p>
-              <Link className="btn btn-success btn-lg mt-2" to="/loans">
+              <Link className="btn btn-success btn-lg" to="/loans">
                 <i className="bi bi-list-check me-2" aria-hidden="true" />View loans
               </Link>
             </div>
             <div className="col-lg-5">
-              <div className="bg-white rounded-4 shadow p-4 text-center">
+              <div className="bg-white rounded-4 shadow-sm p-4 p-md-5 text-center">
                 <i className="bi bi-box2-heart display-3 text-success" aria-hidden="true" />
-                <h2 className="h4 mt-3">{loans.length} items being lent</h2>
+                <h2 className="h4 mt-3 mb-1">{loans.length} items being lent</h2>
+                <p className="text-secondary mb-0">Everything, all in one place</p>
               </div>
             </div>
           </div>
@@ -30,16 +33,24 @@ export default function HomePage() {
       </section>
 
       <section className="container py-5">
-        <div className="row g-3">
-          <div className="col-md-4">
-            <div className="card h-100 border-0 shadow-sm"><div className="card-body"><i className="bi bi-plus-circle fs-3 text-success" /><h2 className="h5 mt-3">Add</h2><p className="text-secondary">Record borrowed items with a simple form.</p></div></div>
-          </div>
-          <div className="col-md-4">
-            <div className="card h-100 border-0 shadow-sm"><div className="card-body"><i className="bi bi-eye fs-3 text-success" /><h2 className="h5 mt-3">View</h2><p className="text-secondary">Open a loan page for item details.</p></div></div>
-          </div>
-          <div className="col-md-4">
-            <div className="card h-100 border-0 shadow-sm"><div className="card-body"><i className="bi bi-trash fs-3 text-success" /><h2 className="h5 mt-3">Delete</h2><p className="text-secondary">Remove items when they come back home.</p></div></div>
-          </div>
+        <div className="row g-4">
+          {[
+            ["plus-circle", "Add", "Record borrowed items with a simple form."],
+            ["eye", "View", "Open a loan page for item details."],
+            ["trash", "Delete", "Remove items when they come back home."],
+          ].map(([icon, title, text]) => (
+            <div className="col-md-4" key={title}>
+              <div className="card h-100 border-0 shadow-sm">
+                <div className="card-body p-4">
+                  <div className="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-circle p-3">
+                    <i className={`bi bi-${icon} fs-4`} aria-hidden="true" />
+                  </div>
+                  <h2 className="h5 mt-3 mb-2">{title}</h2>
+                  <p className="text-secondary mb-0">{text}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </>

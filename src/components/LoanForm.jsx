@@ -33,7 +33,11 @@ export default function LoanForm({ onAdd }) {
     <div className="card border-0 shadow-sm">
       <div className="card-body p-4">
         <h2 className="h5 mb-3"><i className="bi bi-plus-circle text-success me-2" />Add a loan</h2>
-        {message && <div className="alert alert-light border py-2 small">{message}</div>}
+        {message && (
+          <div className="alert alert-success border-success-subtle py-2 small" role="status">
+            <i className="bi bi-check-circle me-2" aria-hidden="true" />{message}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

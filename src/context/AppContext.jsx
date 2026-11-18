@@ -7,6 +7,7 @@ export function AppProvider({ children }) {
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
 
   // useEffect runs once to GET data from the API.
   useEffect(() => {
@@ -41,7 +42,9 @@ export function AppProvider({ children }) {
   }
 
   return (
-    <AppContext.Provider value={{ loans, loading, error, addLoan, deleteLoan }}>
+    <AppContext.Provider
+      value={{ loans, loading, error, search, setSearch, addLoan, deleteLoan }}
+    >
       {children}
     </AppContext.Provider>
   );
