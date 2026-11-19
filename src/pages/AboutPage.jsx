@@ -8,13 +8,13 @@ function About() {
           <p className="text-success fw-semibold mb-2">Our story</p>
           <h1 className="display-6 fw-bold mb-3">About MiniLend</h1>
           <p className="lead text-secondary">
-            MiniLend is a small student project about making lending information
-            easier to understand.
+            MiniLend helps users keep track of things they lend to friends —
+            money, books, or other items.
           </p>
           <p>
-            The idea is to build a simple website where people can learn about
-            borrowing and, later on, use a basic repayment calculator. For now,
-            this is an early version and some parts are not ready yet.
+            A category is created for each type, then a card is added for each
+            loan showing who borrowed it, and when. Cards can be viewed or
+            deleted when the item comes back.
           </p>
           <p>
             We believe that borrowing doesn't have to be confusing. With clear

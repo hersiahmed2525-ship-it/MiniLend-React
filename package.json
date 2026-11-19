@@ -1,4 +1,5 @@
 {
+  "homepage": "https://hersiahmed2525-ship-it.github.io/MiniLend-React",
   "name": "minilend",
   "private": true,
   "version": "0.0.0",
@@ -9,7 +10,9 @@
     "dev:all": "concurrently -n API,WEB -c green,blue \"npm:server\" \"npm:dev\"",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "bootstrap": "^5.3.9",
@@ -27,6 +30,7 @@
     "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
+    "gh-pages": "^6.3.0",
     "globals": "^17.13.0",
     "json-server": "^1.0.0-beta.15",
     "vite": "^8.3.6"

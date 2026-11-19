@@ -4,7 +4,7 @@ import { useApp } from "../context/useApp";
 
 const links = [
   { label: "Home", to: "/", end: true },
-  { label: "Loans", to: "/loans" },
+  { label: "Lent Items", to: "/lends" },
   { label: "About", to: "/about" },
 ];
 
@@ -17,7 +17,6 @@ export default function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg bg-white border-bottom sticky-top">
-
       <div className="container-fluid px-3 px-lg-4">
         <NavLink
           to="/"
@@ -39,7 +38,10 @@ export default function Navbar() {
           <span className="navbar-toggler-icon" />
         </button>
 
-        <div id="main-navigation" className={`collapse navbar-collapse ${open ? "show" : ""}`}>
+        <div
+          id="main-navigation"
+          className={`collapse navbar-collapse ${open ? "show" : ""}`}
+        >
           <div className="navbar-nav me-lg-auto gap-lg-1 mt-3 mt-lg-0">
             {links.map(({ to, label, end }) => (
               <NavLink
@@ -60,10 +62,11 @@ export default function Navbar() {
                 <i className="bi bi-search text-secondary" />
               </span>
               <input
+                name="search"
                 type="search"
                 className="form-control"
-                aria-label="Search loans"
-                placeholder="Search loans..."
+                aria-label="Search lent items"
+                placeholder="Search lent items..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />

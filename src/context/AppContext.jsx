@@ -1,49 +1,64 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AppContext } from "./AppContextValue.js";
 import { assertObject, readObjValue } from "../utils/objectHelpers.js";
 const API_URL = "http://localhost:3001/cards";
 
 export function AppProvider({ children }) {
-  const [loans, setLoans] = useState([]);
+  const [lends, setLends] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
 
-  // useEffect runs once to GET data from the API.
-  useEffect(() => {
+  const fetchData = useCallback(() => {
+    setLoading(true);
+    setError("");
     fetch(API_URL)
       .then((response) => {
-        if (!response.ok) throw new Error("Could not load loans");
+        if (!response.ok) throw new Error("Could not load lent items");
         return response.json();
       })
-      .then(setLoans)
+      .then(setLends)
       .catch((problem) => setError(problem.message))
       .finally(() => setLoading(false));
   }, []);
 
-  async function addLoan(newLoan) {
-    assertObject(newLoan);
+  // useEffect runs once to GET data from the API.
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  async function addLend(newLend) {
+    assertObject(newLend);
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newLoan),
+      body: JSON.stringify(newLend),
     });
-    if (!response.ok) throw new Error("Could not add the loan");
-    const savedLoan = await response.json();
-    assertObject(savedLoan);
-    readObjValue(savedLoan, "id");
-    setLoans((currentLoans) => [...currentLoans, savedLoan]);
+    if (!response.ok) throw new Error("Could not add the lent item");
+    const savedLend = await response.json();
+    assertObject(savedLend);
+    readObjValue(savedLend, "id");
+    setLends((currentLends) => [...currentLends, savedLend]);
   }
 
-  async function deleteLoan(id) {
+  async function deleteLend(id) {
     const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-    if (!response.ok) throw new Error("Could not delete the loan");
-    setLoans((currentLoans) => currentLoans.filter((loan) => loan.id !== id));
+    if (!response.ok) throw new Error("Could not delete the lent item");
+    setLends((currentLends) => currentLends.filter((lend) => lend.id !== id));
   }
 
   return (
     <AppContext.Provider
-      value={{ loans, loading, error, search, setSearch, addLoan, deleteLoan }}
+      value={{
+        lends,
+        loading,
+        error,
+        search,
+        setSearch,
+        addLend,
+        deleteLend,
+        refetch: fetchData,
+      }}
     >
       {children}
     </AppContext.Provider>

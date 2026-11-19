@@ -1,21 +1,22 @@
 import { useApp } from "../context/useApp.js";
 import PageHeader from "../components/PageHeader.jsx";
-import LoanCard from "../components/LoanCard.jsx";
-import LoanForm from "../components/LoanForm.jsx";
+import LendCard from "../components/LendCard.jsx";
+import LendForm from "../components/LendForm.jsx";
 
-export default function LoansPage() {
-  const { loans, loading, error, search, addLoan, deleteLoan } = useApp();
+export default function LendsPage() {
+  const { lends, loading, error, refetch, search, addLend, deleteLend } =
+    useApp();
   const query = search.trim().toLowerCase();
-  const visibleLoans = query
-    ? loans.filter((loan) =>
-        [loan.item, loan.borrower, loan.category]
+  const visibleLends = query
+    ? lends.filter((lend) =>
+        [lend.item, lend.borrower, lend.category]
           .filter(Boolean)
           .some((value) => String(value).toLowerCase().includes(query))
       )
-    : loans;
+    : lends;
   const handleDelete = async (id) => {
     try {
-      await deleteLoan(id);
+      await deleteLend(id);
     } catch (error) {
       alert(error.message);
     }
@@ -29,38 +30,57 @@ export default function LoansPage() {
       />
 
       {loading && (
-        <div className="d-flex align-items-center gap-2 text-secondary mb-4" role="status">
-          <span className="spinner-border spinner-border-sm text-success" aria-hidden="true" />
-          <span>Loading loans...</span>
+        <div
+          className="d-flex align-items-center gap-2 text-secondary mb-4"
+          role="status"
+        >
+          <span
+            className="spinner-border spinner-border-sm text-success"
+            aria-hidden="true"
+          />
+          <span>Loading lent items...</span>
         </div>
       )}
-
-      {error && <div className="alert alert-danger">{error}</div>}
+      {error && (
+        <div className="alert alert-danger d-flex justify-content-between align-items-center gap-3">
+          <span>{error}</span>
+          <button
+            type="button"
+            className="btn btn-outline-danger"
+            onClick={refetch}
+          >
+            Refresh
+          </button>
+        </div>
+      )}
 
       <div className="row g-4">
         <div className="col-lg-4">
           <div className="sticky-lg-top pt-lg-5 z-1">
             <div className="pt-lg-3">
-              <LoanForm onAdd={addLoan} />
+              <LendForm onAdd={addLend} />
             </div>
           </div>
         </div>
 
         <div className="col-lg-8">
           <div className="row g-3">
-            {visibleLoans.map((loan) => (
-              <div key={loan.id} className="col-md-6">
-                <LoanCard loan={loan} onDelete={handleDelete} />
+            {visibleLends.map((lend) => (
+              <div key={lend.id} className="col-md-6">
+                <LendCard lend={lend} onDelete={handleDelete} />
               </div>
             ))}
 
-            {!loading && visibleLoans.length === 0 && (
+            {!loading && visibleLends.length === 0 && (
               <div className="col-12">
                 <div className="card border-0 shadow-sm text-center">
                   <div className="card-body py-5 px-3">
-                    <i className="bi bi-search fs-1 text-success" aria-hidden="true" />
+                    <i
+                      className="bi bi-search fs-1 text-success"
+                      aria-hidden="true"
+                    />
                     <h2 className="h5 mt-3">
-                      {query ? "No matching loans" : "No loans yet"}
+                      {query ? "No matching lent items" : "No lent items yet"}
                     </h2>
                     <p className="text-secondary mb-0">
                       {query

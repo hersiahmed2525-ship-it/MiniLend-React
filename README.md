@@ -1,10 +1,10 @@
 # MiniLend
 
 MiniLend is a React app for keeping track of items lent to other people. You can
-record an item, its borrower, category, and date; search existing loans; view
-loan details; and remove a loan when an item is returned.
+record an item, its borrower, category, and date; search existing lent items; view
+lent item details; and remove a lent item when it is returned.
 
-The interface uses Bootstrap 5 and Bootstrap Icons. Loan data is provided by
+The interface uses Bootstrap 5 and Bootstrap Icons. Lent item data is provided by
 JSON Server and stored in `db.json`.
 
 ## Requirements
@@ -35,16 +35,16 @@ npm run server
 npm run dev
 ```
 
-The app loads loans from `http://localhost:3001/cards`. The initial records,
+The app loads lent items from `http://localhost:3001/cards`. The initial records,
 along with category data, are in `db.json`.
 
 ## Features
 
 - Home page with a current count of lent items.
-- Loans page with a form to add an item and cards for existing loans.
+- Lent items page with a form to add an item and cards for existing lent items.
 - Search by item name, borrower, or category using the navbar search field.
-- Loan detail pages with the item, borrower, category, and date.
-- Delete action for loans.
+- Lent item detail pages with the item, borrower, category, and date.
+- Delete action for lent items.
 - Responsive navigation and Bootstrap-based layouts.
 
 ## Routes
@@ -52,8 +52,8 @@ along with category data, are in `db.json`.
 | Path | Page |
 | --- | --- |
 | `/` | Home |
-| `/loans` | Loan list and add-loan form |
-| `/loans/:id` | Loan details |
+| `/lends` | Lend list and add-lend form |
+| `/lends/:id` | Lend details |
 | `/about` | About MiniLend |
 | Any other path | Not-found page |
 
@@ -65,19 +65,19 @@ src/
   main.jsx                      React entry point and Bootstrap imports
   components/
     Footer.jsx                  Shared footer
-    LoanCard.jsx                Loan summary card and actions
-    LoanForm.jsx                Form for creating a loan
-    Navbar.jsx                  Navigation and loan search
+    LendCard.jsx                Lend summary card and actions
+    LendForm.jsx                Form for creating a lend
+    Navbar.jsx                  Navigation and lend search
     PageHeader.jsx              Shared page heading
   context/
-    AppContext.jsx              Loan state and JSON Server requests
+    AppContext.jsx              Lend state and JSON Server requests
     AppContextValue.js           App context definition
     useApp.js                    Hook for reading app context
   pages/
     AboutPage.jsx                About page
     HomePage.jsx                 Home page
-    LoanDetailsPage.jsx          Loan detail route
-    LoansPage.jsx                Loan list and form page
+    LendDetailsPage.jsx          Lend detail route
+    LendsPage.jsx                Lend list and form page
   utils/
     objectHelpers.js             Object validation and helper functions
 db.json                         JSON Server data

@@ -2,9 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import HomePage from "./pages/HomePage.jsx";
-import LoansPage from "./pages/LoansPage.jsx";
-import LoanDetailsPage from "./pages/LoanDetailsPage.jsx";
+import LendsPage from "./pages/LendsPage.jsx";
+import LendDetailsPage from "./pages/LendDetailsPage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
   return (
@@ -14,19 +15,10 @@ export default function App() {
         <main className="flex-grow-1 bg-body-tertiary">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/loans" element={<LoansPage />} />
-            <Route path="/loans/:id" element={<LoanDetailsPage />} />
+            <Route path="/lends" element={<LendsPage />} />
+            <Route path="/lends/:id" element={<LendDetailsPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route
-              path="*"
-              element={
-                <div className="container py-5 text-center">
-                  <i className="bi bi-compass display-1 text-success" aria-hidden="true" />
-                  <h1 className="h2 mt-3">Page not found</h1>
-                  <p className="text-secondary">The page you requested does not exist.</p>
-                </div>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
