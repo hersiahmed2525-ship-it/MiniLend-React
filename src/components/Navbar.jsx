@@ -68,7 +68,7 @@ export default function Navbar() {
                 type="search"
                 className="form-control border-0 shadow-none bg-transparent ps-1"
                 aria-label="Search lent items"
-                placeholder="Search8"
+                placeholder="Search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
