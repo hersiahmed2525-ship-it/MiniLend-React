@@ -42,7 +42,7 @@ export default function HomePage() {
             <div className="col-md-4" key={title}>
               <div className="card h-100 border-0 shadow-sm">
                 <div className="card-body p-4">
-                  <div className="feature-icon d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-circle">
+                  <div className="d-inline-flex align-items-center justify-content-center bg-success-subtle text-success rounded-circle">
                     <i className={`bi bi-${icon} fs-4 lh-1`} aria-hidden="true" />
                   </div>
                   <h2 className="h5 mt-3 mb-2">{title}</h2>
