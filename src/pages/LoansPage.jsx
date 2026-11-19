@@ -39,7 +39,7 @@ export default function LoansPage() {
 
       <div className="row g-4">
         <div className="col-lg-4">
-          <div className="sticky-lg-top pt-lg-5">
+          <div className="sticky-lg-top pt-lg-5 z-1">
             <div className="pt-lg-3">
               <LoanForm onAdd={addLoan} />
             </div>

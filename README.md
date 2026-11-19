@@ -1,53 +1,95 @@
 # MiniLend
 
-MiniLend is a small React app for organizing borrowed items by category.
+MiniLend is a React app for keeping track of items lent to other people. You can
+record an item, its borrower, category, and date; search existing loans; view
+loan details; and remove a loan when an item is returned.
 
-## Run locally
+The interface uses Bootstrap 5 and Bootstrap Icons. Loan data is provided by
+JSON Server and stored in `db.json`.
 
-Install dependencies once:
+## Requirements
+
+- Node.js and npm
+
+## Getting started
+
+Install dependencies:
 
 ```sh
 npm install
 ```
 
-Start the app and its JSON Server API together:
+Start the API and Vite development server together:
 
 ```sh
 npm run dev:all
 ```
 
-Vite serves the app at `http://localhost:5173`, and JSON Server serves the
-database at `http://localhost:3001`. The starter data is in `db.json`.
+Open `http://localhost:5173`. The JSON Server API runs at
+`http://localhost:3001`.
 
-Useful checks:
+You can also run the processes in separate terminals:
 
 ```sh
-npm run lint
-npm run build
+npm run server
+npm run dev
 ```
+
+The app loads loans from `http://localhost:3001/cards`. The initial records,
+along with category data, are in `db.json`.
+
+## Features
+
+- Home page with a current count of lent items.
+- Loans page with a form to add an item and cards for existing loans.
+- Search by item name, borrower, or category using the navbar search field.
+- Loan detail pages with the item, borrower, category, and date.
+- Delete action for loans.
+- Responsive navigation and Bootstrap-based layouts.
+
+## Routes
+
+| Path | Page |
+| --- | --- |
+| `/` | Home |
+| `/loans` | Loan list and add-loan form |
+| `/loans/:id` | Loan details |
+| `/about` | About MiniLend |
+| Any other path | Not-found page |
 
 ## Project structure
 
 ```text
 src/
-  app/                 Application layout, navigation, and route table
-  pages/               Home, About, not-found, and route-error pages
-  features/
-    home/              Home page sections
-    categories/        Category pages, UI, hooks, and API operations
-    cards/             Card pages, UI, hooks, and API operations
-  shared/
-    api/               Common HTTP request handling
-    components/        UI shared between features and pages
-    hooks/             Generic data-loading behavior
+  App.jsx                       Router and shared page layout
+  main.jsx                      React entry point and Bootstrap imports
+  components/
+    Footer.jsx                  Shared footer
+    LoanCard.jsx                Loan summary card and actions
+    LoanForm.jsx                Form for creating a loan
+    Navbar.jsx                  Navigation and loan search
+    PageHeader.jsx              Shared page heading
+  context/
+    AppContext.jsx              Loan state and JSON Server requests
+    AppContextValue.js           App context definition
+    useApp.js                    Hook for reading app context
+  pages/
+    AboutPage.jsx                About page
+    HomePage.jsx                 Home page
+    LoanDetailsPage.jsx          Loan detail route
+    LoansPage.jsx                Loan list and form page
+  utils/
+    objectHelpers.js             Object validation and helper functions
+db.json                         JSON Server data
 ```
 
-Feature-specific code lives with the feature that owns it. Shared code belongs
-in `src/shared` only when it is actually reused. Read operations use feature
-hooks; create, update, and delete operations use that feature's API module.
-`apiClient.js` centralizes HTTP status handling so API errors reach the UI
-instead of being silently treated as successful requests.
+## Available scripts
 
-Cards currently reference their category by its name in `db.json`. As a result,
-renaming a category also updates its cards, and deleting a category removes its
-cards first.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite development server |
+| `npm run server` | Start JSON Server on port 3001 |
+| `npm run dev:all` | Start Vite and JSON Server together |
+| `npm run build` | Create a production build in `dist/` |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
