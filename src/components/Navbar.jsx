@@ -4,7 +4,7 @@ import { useApp } from "../context/useApp";
 
 const links = [
   { label: "Home", to: "/", end: true },
-  { label: "Lent Items", to: "/lends" },
+  { label: "Loans", to: "/loans" },
   { label: "About", to: "/about" },
 ];
 
@@ -55,21 +55,35 @@ export default function Navbar() {
               </NavLink>
             ))}
           </div>
-
-          <div className="col-12 col-lg-3 ms-lg-auto mt-3 mt-lg-0">
-            <div className="input-group">
-              <span className="input-group-text bg-white" aria-hidden="true">
-                <i className="bi bi-search text-secondary" />
+          <div className="col-12 col-lg-4 ms-lg-auto mt-3 mt-lg-0">
+            <div className="d-flex align-items-center w-100 bg-white border rounded-pill overflow-hidden p-1">
+              {/* Search Icon */}
+              <span className="ps-3 pe-2 text-secondary d-flex align-items-center">
+                <i className="bi bi-search" aria-hidden="true" />
               </span>
+
+              {/* Input Field */}
               <input
                 name="search"
                 type="search"
-                className="form-control"
+                className="form-control border-0 shadow-none bg-transparent ps-1"
                 aria-label="Search lent items"
-                placeholder="Search lent items..."
+                placeholder="Search8"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
+
+              {/* Clear Button (Only shows if there is text) */}
+              {search && (
+                <button
+                  type="button"
+                  className="btn border-0 text-secondary px-2 shadow-none d-flex align-items-center"
+                  onClick={() => setSearch("")}
+                  aria-label="Clear search"
+                >
+                  <i className="bi bi-x-lg" aria-hidden="true" />
+                </button>
+              )}
             </div>
           </div>
         </div>
