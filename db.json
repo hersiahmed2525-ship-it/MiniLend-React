@@ -73,6 +73,69 @@
       "item": "Garden Hose",
       "borrower": "Lucy Brown",
       "date": "2026-06-11"
+    },
+    {
+      "id": "6",
+      "category": "Friends",
+      "item": "PlayStation 5",
+      "borrower": "Marcus Smith",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "7",
+      "category": "Work",
+      "item": "Projector",
+      "borrower": "Sarah Jenkins",
+      "date": "2026-10-01"
+    },
+    {
+      "id": "8",
+      "category": "Neighbors",
+      "item": "Lawn Mower",
+      "borrower": "Bob Miller",
+      "date": "2026-05-20"
+    },
+    {
+      "id": "9",
+      "category": "Hobby Club",
+      "item": "Acoustic Guitar",
+      "borrower": "Chloe Davis",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "10",
+      "category": "Sports Team",
+      "item": "Soccer Ball",
+      "borrower": "James Wilson",
+      "date": "2026-08-05"
+    },
+    {
+      "id": "11",
+      "category": "Study Group",
+      "item": "Calculus Textbook",
+      "borrower": "Priya Patel",
+      "date": "2026-09-30"
+    },
+    {
+      "id": "12",
+      "category": "Extended Family",
+      "item": "Folding Tables",
+      "borrower": "Uncle Mike",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "13",
+      "category": "Roommates",
+      "item": "Vacuum Cleaner",
+      "borrower": "Alex Rivera",
+      "date": "2026-11-18"
+    },
+    {
+      "id": "14",
+      "category": "Community",
+      "item": "Folding Chairs (Set of 5)",
+      "borrower": "Pastor John",
+      "date": "2026-10-12"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
