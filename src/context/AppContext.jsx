@@ -2,8 +2,8 @@ import { useEffect, useState, useCallback } from "react";
 import { AppContext } from "./AppContextValue.js";
 import { assertObject } from "../utils/objectHelpers.js";
 
-const CARDS_URL = "http://localhost:3001/cards";
-const CATEGORIES_URL = "http://localhost:3001/categories";
+const CARDS = "http://localhost:3001/cards";
+const CATEGORIES = "http://localhost:3001/categories";
 
 export function AppProvider({ children }) {
   const [lends, setLends] = useState([]);
@@ -18,8 +18,8 @@ export function AppProvider({ children }) {
       setError("");
 
       const [lendsResponse, categoriesResponse] = await Promise.all([
-        fetch(CARDS_URL),
-        fetch(CATEGORIES_URL),
+        fetch(CARDS),
+        fetch(CATEGORIES),
       ]);
 
       if (!lendsResponse.ok) {
@@ -27,7 +27,7 @@ export function AppProvider({ children }) {
       }
 
       if (!categoriesResponse.ok) {
-        throw new Error("Could not load category items");
+        throw new Error("Could not load categories");
       }
 
       const lendsData = await lendsResponse.json();
@@ -49,7 +49,7 @@ export function AppProvider({ children }) {
   async function addLend(newLend) {
     assertObject(newLend);
 
-    const response = await fetch(CARDS_URL, {
+    const response = await fetch(CARDS, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export function AppProvider({ children }) {
   }
 
   async function updateLend(id, updatedLend) {
-    const response = await fetch(`${CARDS_URL}/${id}`, {
+    const response = await fetch(`${CARDS}/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export function AppProvider({ children }) {
   }
 
   async function deleteLend(id) {
-    const response = await fetch(`${CARDS_URL}/${id}`, {
+    const response = await fetch(`${CARDS}/${id}`, {
       method: "DELETE",
     });
 
@@ -113,9 +113,11 @@ export function AppProvider({ children }) {
         error,
         search,
         setSearch,
+
         addLend,
         updateLend,
         deleteLend,
+
         refetch: fetchData,
       }}
     >
