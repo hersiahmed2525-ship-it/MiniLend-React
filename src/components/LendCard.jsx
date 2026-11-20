@@ -52,6 +52,14 @@ export default function LendCard({ lend, category, onDelete }) {
             View
           </Link>
 
+          <Link
+            className="btn btn-outline-primary btn-sm flex-grow-1"
+            to={`/lends/${lend.id}/edit`}
+          >
+            <i className="bi bi-pencil-square me-1" aria-hidden="true" />
+            Update
+          </Link>
+
           <button
             className="btn btn-outline-danger btn-sm flex-grow-1"
             type="button"
