@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { AppContext } from "./AppContextValue.js";
+import { assertObject } from "../utils/objectHelpers.js";
 const API_URL = "http://localhost:3001/cards";
 
 export function AppProvider({ children }) {
@@ -27,6 +28,7 @@ export function AppProvider({ children }) {
   }, [fetchData]);
 
   async function addLend(newLend) {
+    assertObject(newLend);
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,8 +36,10 @@ export function AppProvider({ children }) {
     });
     if (!response.ok) throw new Error("Could not add the lent item");
     const savedLend = await response.json();
+    assertObject(savedLend);
     setLends((currentLends) => [...currentLends, savedLend]);
   }
+
   async function deleteLend(id) {
     const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
     if (!response.ok) throw new Error("Could not delete the lent item");
