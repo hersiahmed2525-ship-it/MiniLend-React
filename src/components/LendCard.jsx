@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function LendCard({ lend, onDelete }) {
+export default function LendCard({ lend, category, onDelete }) {
   const today = new Date().toISOString().slice(0, 10);
 
   const isOverdue = lend.date < today;
@@ -9,9 +9,18 @@ export default function LendCard({ lend, onDelete }) {
     <article className="card h-100 border-0 shadow-sm">
       <div className="card-body d-flex flex-column p-4">
         <div className="d-flex justify-content-between align-items-start mb-3">
-          <span className="badge text-bg-success-subtle text-success">
-            {lend.category}
-          </span>
+          <div className="d-flex align-items-center gap-2">
+            <span
+              className="d-inline-flex align-items-center justify-content-center rounded-circle border border-success-subtle bg-success-subtle text-success"
+              style={{ width: "2rem", height: "2rem" }}
+            >
+              <i className={`bi ${category?.icon}`} />
+            </span>
+
+            <span className="badge border border-success-subtle text-success bg-success-subtle">
+              {lend.category}
+            </span>
+          </div>
 
           <span
             className={`badge ${
