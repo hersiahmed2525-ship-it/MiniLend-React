@@ -43,11 +43,10 @@ export default function Navbar() {
           className={`collapse navbar-collapse ${open ? "show" : ""}`}
         >
           <div className="navbar-nav me-lg-auto gap-lg-1 mt-3 mt-lg-0">
-            {links.map(({ to, label, end }) => (
+            {links.map(({ to, label }) => (
               <NavLink
                 key={to}
                 to={to}
-                end={end}
                 className={linkClass}
                 onClick={() => setOpen(false)}
               >

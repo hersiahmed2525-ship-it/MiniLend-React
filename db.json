@@ -53,13 +53,6 @@
   ],
   "cards": [
     {
-      "id": "1",
-      "category": "Family",
-      "item": "Power Drill",
-      "borrower": "Jane Smith",
-      "date": "2026-10-20"
-    },
-    {
       "id": "2",
       "category": "Family",
       "item": "Ladder",
