@@ -4,7 +4,7 @@ import { useApp } from "../context/useApp";
 
 const links = [
   { label: "Home", to: "/", end: true },
-  { label: "Loans", to: "/loans" },
+  { label: "Loans", to: "/lends" },
   { label: "About", to: "/about" },
 ];
 

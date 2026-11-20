@@ -4,7 +4,7 @@ const emptyLend = {
   item: "",
   borrower: "",
   category: "Friends",
-  date: new Date().toISOString().slice(0, 10),
+  date: new Date().toISOString().slice(0, 10), // 2026-06-11
 };
 
 export default function LendForm({ onAdd }) {
