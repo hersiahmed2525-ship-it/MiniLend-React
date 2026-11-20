@@ -64,7 +64,7 @@ export default function Navbar() {
               {/* Input Field */}
               <input
                 name="search"
-                type="search"
+                type="text"
                 className="form-control border-0 shadow-none bg-transparent ps-1"
                 aria-label="Search lent items"
                 placeholder="Search"
