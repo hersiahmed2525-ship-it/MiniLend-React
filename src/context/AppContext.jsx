@@ -40,6 +40,24 @@ export function AppProvider({ children }) {
     setLends((currentLends) => [...currentLends, savedLend]);
   }
 
+  async function updateLend(id, updatedLend) {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedLend),
+    });
+    if (!response.ok) {
+      throw new Error("Could not update the lent item");
+    }
+    const savedLend = await response.json();
+    setLends((currentLends) =>
+      currentLends.map((lend) => (lend.id === id ? savedLend : lend))
+    );
+
+    return savedLend;
+  }
   async function deleteLend(id) {
     const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
     if (!response.ok) throw new Error("Could not delete the lent item");
@@ -55,6 +73,7 @@ export function AppProvider({ children }) {
         search,
         setSearch,
         addLend,
+        updateLend,
         deleteLend,
         refetch: fetchData,
       }}

@@ -53,13 +53,6 @@
   ],
   "cards": [
     {
-      "id": "2",
-      "category": "Family",
-      "item": "Ladder",
-      "borrower": "Tom Smith",
-      "date": "2026-09-14"
-    },
-    {
       "id": "3",
       "category": "Family",
       "item": "Camping Tent",
