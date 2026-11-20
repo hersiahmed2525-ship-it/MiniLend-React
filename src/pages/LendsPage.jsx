@@ -4,9 +4,19 @@ import LendCard from "../components/LendCard.jsx";
 import LendForm from "../components/LendForm.jsx";
 
 export default function LendsPage() {
-  const { lends, loading, error, refetch, search, addLend, deleteLend } =
-    useApp();
+  const {
+    lends,
+    categories,
+    loading,
+    error,
+    refetch,
+    search,
+    addLend,
+    deleteLend,
+  } = useApp();
+
   const query = search.trim().toLowerCase();
+
   const visibleLends = query
     ? lends.filter((lend) =>
         [lend.item, lend.borrower, lend.category]
@@ -14,6 +24,7 @@ export default function LendsPage() {
           .some((value) => String(value).toLowerCase().includes(query))
       )
     : lends;
+
   const handleDelete = async (id) => {
     try {
       await deleteLend(id);
@@ -41,9 +52,11 @@ export default function LendsPage() {
           <span>Loading lent items...</span>
         </div>
       )}
+
       {error && (
         <div className="alert alert-danger d-flex justify-content-between align-items-center gap-3">
           <span>{error}</span>
+
           <button
             type="button"
             className="btn btn-outline-danger"
@@ -65,11 +78,21 @@ export default function LendsPage() {
 
         <div className="col-lg-8">
           <div className="row g-3">
-            {visibleLends.map((lend) => (
-              <div key={lend.id} className="col-md-6">
-                <LendCard lend={lend} onDelete={handleDelete} />
-              </div>
-            ))}
+            {visibleLends.map((lend) => {
+              const category = categories.find(
+                (category) => category.name === lend.category
+              );
+
+              return (
+                <div key={lend.id} className="col-md-6">
+                  <LendCard
+                    lend={lend}
+                    category={category}
+                    onDelete={handleDelete}
+                  />
+                </div>
+              );
+            })}
 
             {!loading && visibleLends.length === 0 && (
               <div className="col-12">
@@ -79,9 +102,11 @@ export default function LendsPage() {
                       className="bi bi-search fs-1 text-success"
                       aria-hidden="true"
                     />
+
                     <h2 className="h5 mt-3">
                       {query ? "No matching lent items" : "No lent items yet"}
                     </h2>
+
                     <p className="text-secondary mb-0">
                       {query
                         ? "Try another item, borrower, or category."
